@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { condoRouter } from "./routes/condo.route.js";
 
 const app = express();
 const port = Number(process.env.PORT ?? 3001);
@@ -11,9 +12,7 @@ app.get("/health", (_request, response) => {
   response.json({ ok: true });
 });
 
-app.get("/api/condominiums", (_request, response) => {
-  response.json([]);
-});
+app.use("/api/condominiums", condoRouter);
 
 app.listen(port, () => {
   console.log(`Backend rodando em http://localhost:${port}`);
