@@ -9,7 +9,10 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "private": "true",
+  "private": true,
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "workspaces": [
     "backend",
     "frontend"

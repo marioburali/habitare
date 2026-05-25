@@ -8,10 +8,6 @@ export function App() {
   app.use(cors());
   app.use(express.json());
 
-  app.get('/health', (_request, response) => {
-    response.json({ ok: true });
-  });
-
   app.use('/api/condominiums', condoRouter);
 
   return app;
