@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { getCondos } from '../services/condos';
 import type { Condo } from '../types/condo';
 import { Header } from '../components/Header';
 import { Stats } from '../components/Stats';
 import { CondoList } from '../components/CondoList';
+import { CondoSortControls } from '../components/CondoSortControls';
+import { sortCondos, type CondoSortOption } from '../utils/sortCondos';
 
 export function HomePage() {
   const [condos, setCondos] = useState<Condo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<CondoSortOption>({ field: 'name', direction: 'asc' });
 
   useEffect(() => {
     let active = true;
@@ -42,6 +45,7 @@ export function HomePage() {
   }, []);
 
   const totalResidents = condos.reduce((s, c) => s + c.residents, 0);
+  const sortedCondos = useMemo(() => sortCondos(condos, sortBy), [condos, sortBy]);
 
   return (
     <div className="min-h-screen py-12">
@@ -83,7 +87,12 @@ export function HomePage() {
               </div>
             ) : null}
 
-            {!loading && !error ? <CondoList condos={condos} /> : null}
+            {!loading && !error ? (
+              <div className="space-y-4">
+                <CondoSortControls value={sortBy} onChange={setSortBy} />
+                <CondoList condos={sortedCondos} />
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
