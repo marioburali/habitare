@@ -5,7 +5,7 @@ import { Header } from '../components/Header';
 import { Stats } from '../components/Stats';
 import { CondoList } from '../components/CondoList';
 import { sortCondos, type CondoSortOption } from '../utils/sortCondos';
-import { CondoToolbar } from '../components/CondoToolbar.tsx';
+import { CondoToolbar } from '../components/CondoToolbar';
 import { filterCondos } from '../utils/filterCondos';
 import type { CondoSizeFilter } from '../types/condo';
 
@@ -63,7 +63,7 @@ export function HomePage() {
   );
 
   return (
-    <div className="min-h-screen py-12">
+    <main className="min-h-screen py-12">
       <div className="max-w-6xl mx-auto p-6 space-y-6">
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
           <div className="md:col-span-2 md:h-full">
@@ -73,20 +73,34 @@ export function HomePage() {
             />
           </div>
 
-          <div className="flex flex-col gap-4 md:h-full">
+          <section
+            className="flex flex-col gap-4 md:h-full"
+            aria-labelledby="summary-heading"
+          >
+            <h2 id="summary-heading" className="sr-only">
+              Resumo dos condomínios
+            </h2>
             <div className="md:flex-1">
               <Stats value={filteredCondos.length} label="Total de Condomínios" />
             </div>
             <div className="md:flex-1">
               <Stats value={totalResidents} label="Total de Residentes" />
             </div>
-          </div>
+          </section>
         </div>
 
-        <div>
+        <section aria-labelledby="condo-list-heading">
           <div className="bg-emerald-50 p-6 rounded-2xl border border-emerald-200">
+            <h2 id="condo-list-heading" className="sr-only">
+              Lista de condomínios
+            </h2>
+
             {loading ? (
-              <div className="flex items-center justify-center gap-3 rounded-xl border border-emerald-200 bg-emerald-100/70 px-4 py-5 text-emerald-800">
+              <div
+                className="flex items-center justify-center gap-3 rounded-xl border border-emerald-200 bg-emerald-100/70 px-4 py-5 text-emerald-800"
+                role="status"
+                aria-live="polite"
+              >
                 <span className="h-5 w-5 animate-spin rounded-full border-2 border-emerald-300 border-t-emerald-700" />
                 <p className="text-sm font-medium">Carregando condomínios...</p>
               </div>
@@ -123,8 +137,8 @@ export function HomePage() {
               </div>
             ) : null}
           </div>
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }

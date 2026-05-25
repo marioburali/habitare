@@ -1,19 +1,13 @@
 import type { Condo } from '../types/condo';
 import habitareIcon from '../assets/habitare.svg';
+import {
+  condoSizeBadgeClasses,
+  condoSizeLabels,
+} from '../constants/condoSize';
 
 export function CondoItem({ condo }: { condo: Condo }) {
-  const sizeLabel =
-    condo.size === 'large'
-      ? 'Grande'
-      : condo.size === 'medium'
-        ? 'Médio'
-        : 'Pequeno';
-  const sizeBadgeClass =
-    condo.size === 'large'
-      ? 'bg-emerald-800'
-      : condo.size === 'medium'
-        ? 'bg-emerald-600'
-        : 'bg-emerald-500';
+  const sizeLabel = condoSizeLabels[condo.size];
+  const sizeBadgeClass = condoSizeBadgeClasses[condo.size];
 
   return (
     <article className="w-full h-full flex items-stretch flex-col sm:flex-row gap-4 p-4 bg-emerald-50 border border-emerald-200 rounded-xl shadow-sm hover:shadow-md transition min-h-32 cursor-pointer">
