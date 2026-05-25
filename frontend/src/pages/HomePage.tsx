@@ -51,11 +51,11 @@ export function HomePage() {
     };
   }, []);
 
-  const totalResidents = condos.reduce((s, c) => s + c.residents, 0);
   const filteredCondos = useMemo(
     () => filterCondos(condos, searchQuery, sizeFilter),
     [condos, searchQuery, sizeFilter],
   );
+  const totalResidents = filteredCondos.reduce((s, c) => s + c.residents, 0);
 
   const sortedCondos = useMemo(
     () => sortCondos(filteredCondos, sortBy),
@@ -75,7 +75,7 @@ export function HomePage() {
 
           <div className="flex flex-col gap-4 md:h-full">
             <div className="md:flex-1">
-              <Stats value={condos.length} label="Total de Condomínios" />
+              <Stats value={filteredCondos.length} label="Total de Condomínios" />
             </div>
             <div className="md:flex-1">
               <Stats value={totalResidents} label="Total de Residentes" />

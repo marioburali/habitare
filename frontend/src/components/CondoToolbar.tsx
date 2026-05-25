@@ -44,7 +44,7 @@ export function CondoToolbar({
         </label>
       </div>
 
-      <div className="lg:h-full">
+      <div className="min-w-0 lg:h-full">
         <CondoFilterControls
           value={sizeFilter}
           onChange={onSizeFilterChange}
@@ -52,7 +52,7 @@ export function CondoToolbar({
         />
       </div>
 
-      <div className="lg:h-full">
+      <div className="min-w-0 lg:h-full">
         <CondoSortControls
           value={sortBy}
           onChange={onSortChange}

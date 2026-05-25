@@ -20,7 +20,7 @@ const sortOptions: SortOption[] = [
   },
   {
     field: 'residents',
-    label: 'Quantidade',
+    label: 'Residentes',
     ascLabel: 'Menor-Maior',
     descLabel: 'Maior-Menor',
   },
@@ -50,14 +50,14 @@ export function CondoSortControls({
 
   return (
     <fieldset
-      className="rounded-2xl border border-emerald-200 bg-emerald-50 py-2 px-6"
+      className="h-full w-full min-w-0 rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-3"
       disabled={disabled}
     >
       <legend className="px-1 text-sm font-semibold text-emerald-800">
         Ordenar por
       </legend>
 
-      <div className="flex flex-wrap justify-between">
+      <div className="flex w-full flex-wrap gap-2">
         {sortOptions.map((option) => {
           const isActive = option.field === value.field;
           const currentDirection = isActive
@@ -75,7 +75,7 @@ export function CondoSortControls({
               onClick={() => handleToggle(option.field)}
               aria-pressed={isActive}
               className={[
-                'flex-2 rounded-full px-6 py-1 text-sm font-medium transition',
+                'min-h-12 min-w-0 flex-1 rounded-full px-4 py-1 text-sm font-medium transition',
                 'border shadow-sm',
                 isActive
                   ? 'border-emerald-600 bg-emerald-600 text-white'

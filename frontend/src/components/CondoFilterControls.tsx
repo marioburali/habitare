@@ -23,19 +23,19 @@ export function CondoFilterControls({
 }) {
   return (
     <fieldset
-      className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4"
+      className="h-full w-full min-w-0 rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-3"
       disabled={disabled}
     >
       <legend className="px-1 text-sm font-semibold text-emerald-800">
         Tamanho
       </legend>
 
-      <div className="flex w-full flex-wrap justify-between">
+      <div className="flex w-full flex-wrap gap-2">
         {filterOptions.map((option) => {
           const isActive = value === option.value;
 
           return (
-            <label key={option.value} className="flex-1 basis-[calc(50%-0px)] cursor-pointer lg:basis-0">
+            <label key={option.value} className="min-w-0 flex-1 cursor-pointer">
               <input
                 type="radio"
                 name="condo-size-filter"
@@ -47,7 +47,7 @@ export function CondoFilterControls({
 
               <span
                 className={[
-                  'flex items-center justify-center rounded-full border px-2 py-1 text-sm font-medium transition',
+                  'flex min-h-12 items-center justify-center rounded-full border px-2 py-2 text-sm font-medium transition',
                   'shadow-sm',
                   isActive
                     ? 'border-emerald-600 bg-emerald-600 text-white'
