@@ -21,8 +21,8 @@ const sortOptions: SortOption[] = [
   {
     field: 'residents',
     label: 'Quantidade',
-    ascLabel: 'Menor-maior',
-    descLabel: 'Maior-menor',
+    ascLabel: 'Menor-Maior',
+    descLabel: 'Maior-Menor',
   },
 ];
 

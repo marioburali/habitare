@@ -4,13 +4,14 @@ import type { Condo } from '../types/condo';
 import { Header } from '../components/Header';
 import { Stats } from '../components/Stats';
 import { CondoList } from '../components/CondoList';
-import { CondoSortControls } from '../components/CondoSortControls';
 import { sortCondos, type CondoSortOption } from '../utils/sortCondos';
+import { CondoToolbar } from '../components/CondoToolbar';
 
 export function HomePage() {
   const [condos, setCondos] = useState<Condo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<CondoSortOption>({ field: 'name', direction: 'asc' });
 
   useEffect(() => {
@@ -45,7 +46,22 @@ export function HomePage() {
   }, []);
 
   const totalResidents = condos.reduce((s, c) => s + c.residents, 0);
-  const sortedCondos = useMemo(() => sortCondos(condos, sortBy), [condos, sortBy]);
+  const filteredCondos = useMemo(() => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+
+    if (!normalizedQuery) {
+      return condos;
+    }
+
+    return condos.filter((condo) =>
+      condo.name.toLowerCase().includes(normalizedQuery),
+    );
+  }, [condos, searchQuery]);
+
+  const sortedCondos = useMemo(
+    () => sortCondos(filteredCondos, sortBy),
+    [filteredCondos, sortBy],
+  );
 
   return (
     <div className="min-h-screen py-12">
@@ -89,8 +105,20 @@ export function HomePage() {
 
             {!loading && !error ? (
               <div className="space-y-4">
-                <CondoSortControls value={sortBy} onChange={setSortBy} />
-                <CondoList condos={sortedCondos} />
+                <CondoToolbar
+                  search={searchQuery}
+                  onSearchChange={setSearchQuery}
+                  sortBy={sortBy}
+                  onSortChange={setSortBy}
+                />
+
+                {sortedCondos.length > 0 ? (
+                  <CondoList condos={sortedCondos} />
+                ) : (
+                  <div className="rounded-xl border border-emerald-200 bg-white px-4 py-5 text-sm text-emerald-800">
+                    Nenhum condomínio encontrado para a busca atual.
+                  </div>
+                )}
               </div>
             ) : null}
           </div>
