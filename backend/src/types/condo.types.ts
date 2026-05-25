@@ -1,4 +1,4 @@
-export type CondoSize = 'small' | 'medium' | 'large';
+export type CondoSize = "small" | "medium" | "large";
 
 export type Condo = {
   id: string;
@@ -6,3 +6,4 @@ export type Condo = {
   residents: number;
   size: CondoSize;
 };
+
