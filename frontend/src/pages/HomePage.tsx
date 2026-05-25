@@ -4,6 +4,7 @@ import type { Condo } from '../types/condo';
 import { Header } from '../components/Header';
 import { Stats } from '../components/Stats';
 import { CondoList } from '../components/CondoList';
+import { CondoDetailsModal } from '../components/CondoDetailsModal';
 import { sortCondos, type CondoSortOption } from '../utils/sortCondos';
 import { CondoToolbar } from '../components/CondoToolbar';
 import { filterCondos } from '../utils/filterCondos';
@@ -15,6 +16,7 @@ export function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [sizeFilter, setSizeFilter] = useState<CondoSizeFilter>('all');
+  const [selectedCondo, setSelectedCondo] = useState<Condo | null>(null);
   const [sortBy, setSortBy] = useState<CondoSortOption>({
     field: 'name',
     direction: 'asc',
@@ -128,7 +130,10 @@ export function HomePage() {
                 />
 
                 {sortedCondos.length > 0 ? (
-                  <CondoList condos={sortedCondos} />
+                  <CondoList
+                    condos={sortedCondos}
+                    onSelectCondo={setSelectedCondo}
+                  />
                 ) : (
                   <div className="rounded-xl border border-emerald-200 bg-white px-4 py-5 text-sm text-emerald-800">
                     Nenhum condomínio encontrado para a busca atual.
@@ -139,6 +144,13 @@ export function HomePage() {
           </div>
         </section>
       </div>
+
+      {selectedCondo ? (
+        <CondoDetailsModal
+          condo={selectedCondo}
+          onClose={() => setSelectedCondo(null)}
+        />
+      ) : null}
     </main>
   );
 }

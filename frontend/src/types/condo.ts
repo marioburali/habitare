@@ -7,3 +7,11 @@ export type Condo = {
   residents: number;
   size: CondoSize;
 };
+
+export type CondoDetails = {
+  manager: string;
+  contact: string;
+  address: string;
+  description: string;
+  cost: number;
+};
