@@ -5,14 +5,20 @@ import { Header } from '../components/Header';
 import { Stats } from '../components/Stats';
 import { CondoList } from '../components/CondoList';
 import { sortCondos, type CondoSortOption } from '../utils/sortCondos';
-import { CondoToolbar } from '../components/CondoToolbar';
+import { CondoToolbar } from '../components/CondoToolbar.tsx';
+import { filterCondos } from '../utils/filterCondos';
+import type { CondoSizeFilter } from '../types/condo';
 
 export function HomePage() {
   const [condos, setCondos] = useState<Condo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState<CondoSortOption>({ field: 'name', direction: 'asc' });
+  const [sizeFilter, setSizeFilter] = useState<CondoSizeFilter>('all');
+  const [sortBy, setSortBy] = useState<CondoSortOption>({
+    field: 'name',
+    direction: 'asc',
+  });
 
   useEffect(() => {
     let active = true;
@@ -46,17 +52,10 @@ export function HomePage() {
   }, []);
 
   const totalResidents = condos.reduce((s, c) => s + c.residents, 0);
-  const filteredCondos = useMemo(() => {
-    const normalizedQuery = searchQuery.trim().toLowerCase();
-
-    if (!normalizedQuery) {
-      return condos;
-    }
-
-    return condos.filter((condo) =>
-      condo.name.toLowerCase().includes(normalizedQuery),
-    );
-  }, [condos, searchQuery]);
+  const filteredCondos = useMemo(
+    () => filterCondos(condos, searchQuery, sizeFilter),
+    [condos, searchQuery, sizeFilter],
+  );
 
   const sortedCondos = useMemo(
     () => sortCondos(filteredCondos, sortBy),
@@ -108,6 +107,8 @@ export function HomePage() {
                 <CondoToolbar
                   search={searchQuery}
                   onSearchChange={setSearchQuery}
+                  sizeFilter={sizeFilter}
+                  onSizeFilterChange={setSizeFilter}
                   sortBy={sortBy}
                   onSortChange={setSortBy}
                 />

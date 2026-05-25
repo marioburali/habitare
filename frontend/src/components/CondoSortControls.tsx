@@ -50,14 +50,14 @@ export function CondoSortControls({
 
   return (
     <fieldset
-      className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4"
+      className="rounded-2xl border border-emerald-200 bg-emerald-50 py-2 px-6"
       disabled={disabled}
     >
       <legend className="px-1 text-sm font-semibold text-emerald-800">
         Ordenar por
       </legend>
 
-      <div className="mt-3 flex flex-wrap gap-2">
+      <div className="flex flex-wrap justify-between">
         {sortOptions.map((option) => {
           const isActive = option.field === value.field;
           const currentDirection = isActive
@@ -75,7 +75,7 @@ export function CondoSortControls({
               onClick={() => handleToggle(option.field)}
               aria-pressed={isActive}
               className={[
-                'rounded-full px-8 py-1 text-sm font-medium transition',
+                'flex-2 rounded-full px-6 py-1 text-sm font-medium transition',
                 'border shadow-sm',
                 isActive
                   ? 'border-emerald-600 bg-emerald-600 text-white'

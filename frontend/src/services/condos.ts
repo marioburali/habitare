@@ -1,11 +1,11 @@
-import type { Condo } from '../types/condo'
+import type { Condo } from '../types/condo';
 
 export async function getCondos(): Promise<Condo[]> {
-  const response = await fetch('/api/condominiums')
+  const response = await fetch('/api/condominiums');
 
   if (!response.ok) {
-    throw new Error('Failed to load condominiums')
+    throw new Error('Failed to load condominiums');
   }
 
-  return (await response.json()) as Condo[]
+  return (await response.json()) as Condo[];
 }

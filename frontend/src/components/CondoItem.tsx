@@ -17,7 +17,7 @@ export function CondoItem({ condo }: { condo: Condo }) {
 
   return (
     <article className="w-full h-full flex items-stretch flex-col sm:flex-row gap-4 p-4 bg-emerald-50 border border-emerald-200 rounded-xl shadow-sm hover:shadow-md transition min-h-32">
-      <header className="flex items-start gap-4 min-w-0 flex-1">
+      <div className="flex items-start gap-4 min-w-0 flex-1">
         <div
           className="flex-shrink-0 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 font-bold"
           aria-hidden="true"
@@ -38,9 +38,9 @@ export function CondoItem({ condo }: { condo: Condo }) {
             {condo.id}
           </p>
         </div>
-      </header>
+      </div>
 
-      <footer className="mt-3 sm:mt-0 sm:ml-6 flex flex-col justify-between items-end gap-4 flex-shrink-0">
+      <div className="mt-3 sm:mt-0 sm:ml-6 flex flex-col justify-between items-end gap-4 flex-shrink-0">
         <dl className="text-right">
           <dd className="text-lg font-bold text-emerald-900">
             {condo.residents.toLocaleString('pt-BR')}
@@ -56,7 +56,7 @@ export function CondoItem({ condo }: { condo: Condo }) {
             {sizeLabel}
           </span>
         </div>
-      </footer>
+      </div>
     </article>
   );
 }
