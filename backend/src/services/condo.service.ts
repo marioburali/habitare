@@ -2,11 +2,11 @@ import { fetchDatausaCondoRecords } from "../api/datausa.api.js";
 import type { Condo, CondoSize } from "../types/condo.types.js";
 
 function getCondoSize(residents: number): CondoSize {
-	if (residents <= 2_000_000) {
+	if (residents <= 2000000) {
 		return "small";
 	}
 
-	if (residents <= 5_000_000) {
+	if (residents <= 5000000) {
 		return "medium";
 	}
 

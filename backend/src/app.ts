@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 import { condoRouter } from "./routes/condo.route.js";
 
-export function createApp() {
+export function App() {
 	const app = express();
 
 	app.use(cors());
