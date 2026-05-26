@@ -5,10 +5,13 @@ import { Header } from '../components/Header';
 import { Stats } from '../components/Stats';
 import { CondoList } from '../components/CondoList';
 import { CondoDetailsModal } from '../components/CondoDetailsModal';
+import { LoadMoreButton } from '../components/LoadMoreButton';
 import { sortCondos, type CondoSortOption } from '../utils/sortCondos';
 import { CondoToolbar } from '../components/CondoToolbar';
 import { filterCondos } from '../utils/filterCondos';
 import type { CondoSizeFilter } from '../types/condo';
+
+const CONDOS_PER_PAGE = 12;
 
 export function HomePage() {
   const [condos, setCondos] = useState<Condo[]>([]);
@@ -17,6 +20,7 @@ export function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sizeFilter, setSizeFilter] = useState<CondoSizeFilter>('all');
   const [selectedCondo, setSelectedCondo] = useState<Condo | null>(null);
+  const [visibleCount, setVisibleCount] = useState(CONDOS_PER_PAGE);
   const [sortBy, setSortBy] = useState<CondoSortOption>({
     field: 'name',
     direction: 'asc',
@@ -63,6 +67,32 @@ export function HomePage() {
     () => sortCondos(filteredCondos, sortBy),
     [filteredCondos, sortBy],
   );
+  const visibleCondos = sortedCondos.slice(0, visibleCount);
+  const hasMoreCondos = visibleCount < sortedCondos.length;
+  const displayedCondoCount = Math.min(visibleCount, sortedCondos.length);
+
+  function handleLoadMore() {
+    setVisibleCount((currentCount) => currentCount + CONDOS_PER_PAGE);
+  }
+
+  function resetVisibleCondos() {
+    setVisibleCount(CONDOS_PER_PAGE);
+  }
+
+  function handleSearchChange(value: string) {
+    setSearchQuery(value);
+    resetVisibleCondos();
+  }
+
+  function handleSizeFilterChange(value: CondoSizeFilter) {
+    setSizeFilter(value);
+    resetVisibleCondos();
+  }
+
+  function handleSortChange(value: CondoSortOption) {
+    setSortBy(value);
+    resetVisibleCondos();
+  }
 
   return (
     <main className="min-h-screen py-12">
@@ -83,7 +113,10 @@ export function HomePage() {
               Resumo dos condomínios
             </h2>
             <div className="md:flex-1">
-              <Stats value={filteredCondos.length} label="Total de Condomínios" />
+              <Stats
+                value={filteredCondos.length}
+                label="Total de Condomínios"
+              />
             </div>
             <div className="md:flex-1">
               <Stats value={totalResidents} label="Total de Residentes" />
@@ -122,18 +155,28 @@ export function HomePage() {
               <div className="space-y-4">
                 <CondoToolbar
                   search={searchQuery}
-                  onSearchChange={setSearchQuery}
+                  onSearchChange={handleSearchChange}
                   sizeFilter={sizeFilter}
-                  onSizeFilterChange={setSizeFilter}
+                  onSizeFilterChange={handleSizeFilterChange}
                   sortBy={sortBy}
-                  onSortChange={setSortBy}
+                  onSortChange={handleSortChange}
                 />
 
                 {sortedCondos.length > 0 ? (
-                  <CondoList
-                    condos={sortedCondos}
-                    onSelectCondo={setSelectedCondo}
-                  />
+                  <>
+                    <CondoList
+                      condos={visibleCondos}
+                      onSelectCondo={setSelectedCondo}
+                    />
+
+                    {hasMoreCondos ? (
+                      <LoadMoreButton
+                        visibleCount={displayedCondoCount}
+                        totalCount={sortedCondos.length}
+                        onLoadMore={handleLoadMore}
+                      />
+                    ) : null}
+                  </>
                 ) : (
                   <div className="rounded-xl border border-emerald-200 bg-white px-4 py-5 text-sm text-emerald-800">
                     Nenhum condomínio encontrado para a busca atual.
