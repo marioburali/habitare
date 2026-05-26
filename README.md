@@ -42,8 +42,7 @@ nvm use
 Na raiz do projeto, instale as dependências da raiz, backend e frontend:
 
 ```bash
-npm i              # instala o concurrently
-npm run install:all # instala backend + frontend
+npm run install:all # instala raiz (concurrently) e após backend + frontend
 npm run dev        # sobe os dois servidores
 ```
 
