@@ -1,6 +1,6 @@
 # Desafio Técnico Euro
 
-# Habitare — Painel de Gestão de Condomínios
+## Habitare — Painel de Gestão de Condomínios
 
 Aplicação full stack desenvolvida para o teste técnico de Painel de Gestão de Condomínios. O projeto consome dados públicos da API DataUSA no backend, transforma esses dados para o domínio de condomínios e exibe um painel interativo no frontend.
 
@@ -62,7 +62,7 @@ O backend é responsável por:
 - Consumir a API pública da DataUSA.
 - Validar o formato básico dos registros externos.
 - Transformar os dados para o modelo de condomínio.
-- Classificar o porte do condomínio (opção escolhida por segurança de dados e otimizar consultas diretas no DB).
+- Classificar o porte do condomínio.
 - Expor o endpoint `GET /api/condominiums`.
 - Tratar falhas da API externa com resposta HTTP adequada.
 
