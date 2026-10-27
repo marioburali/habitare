@@ -2,7 +2,7 @@
 
 ## Habitare — Painel de Gestão de Condomínios
 
-Aplicação full stack desenvolvida para o teste técnico de Painel de Gestão de Condomínios. O projeto consome dados públicos da API DataUSA no backend, transforma esses dados para o domínio de condomínios e exibe um painel interativo no frontend.
+Aplicação full stack desenvolvida para o teste técnico de Painel de Gestão de Condomínios, desafio proposto pela Euro. O projeto consome dados públicos da API DataUSA no backend, transforma esses dados para o domínio de condomínios e exibe um painel interativo no frontend.
 
 ## Visão Geral
 
